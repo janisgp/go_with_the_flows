@@ -29,13 +29,17 @@ checkpoints.
 For class-conditional generative models, run:
   
   ./scripts/train_airplane_gen.sh
+  
   ./scripts/train_car_gen.sh
+  
   ./scripts/train_chair_gen.sh
 
 For auto-encoding task, run:
+
   ./scripts/train_all_ae.sh
 
 For SVR task, run:
+
   ./scripts/train_all_svr.sh
 
 # Evaluation
@@ -46,14 +50,20 @@ For generation task, take airplanes category as an example:
   ./scripts/run_evaluate_gen.sh
 
 For auto-encoding task:
+
   ./scripts/run_evaluate_ae.sh
 
 For SVR task,
+
   ./scripts/run_evaluate_svr.sh
 
 # Visualization
 
+For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following its document. Then we run:
 
+  ./scripts/render.sh
+ 
+to generate the rendered figures.
 
 
 
