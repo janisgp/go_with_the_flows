@@ -34,6 +34,8 @@ checkpoints.
   
 # Training
 
+## Generative modeling
+
 A generative model can be trained on airplanes/cars/chairs by running the corresponding subsequent command:
  
 ``` 
@@ -44,11 +46,15 @@ bash ./scripts/train_car_gen.sh
 bash ./scripts/train_chair_gen.sh
 ```
 
+## Autoencoding
+
 An Autoencoder on the entire ShapeNet dataset can be trained using:
 
 ```
 bash ./scripts/train_all_ae.sh
 ```
+
+## Single-view reconstruction
 
 To train our model on single-view reconstruction, run:
 
@@ -58,27 +64,37 @@ bash ./scripts/train_all_svr.sh
 
 # Evaluation
 
-When using pretrained models, evaluation can be done by running:
+## Generative modeling
 
-For generation task, take airplanes category as an example:
+Generative models can be evaluated by running:
  
-  ./scripts/run_evaluate_gen.sh
+```
+./scripts/run_evaluate_gen.sh
+```
 
-For auto-encoding task:
+## Autoencoding
 
-  ./scripts/run_evaluate_ae.sh
+Autoencoding can be evaluated by running:
 
-For SVR task,
+```
+./scripts/run_evaluate_ae.sh
+```
 
-  ./scripts/run_evaluate_svr.sh
+## Single-view reconstruction
+
+Single-view reconstruction can be evaluated by running:
+
+```
+./scripts/run_evaluate_svr.sh
+```
 
 # Visualization
 
-For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following its document. Then we run:
+For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following the [official documentation](link.to.offical.documentation). Subsequently, point clouds can be rendered by running:
 
-  ./scripts/render.sh
- 
-to generate the rendered figures.
+```
+./scripts/render.sh
+```
 
 # Citation
 
