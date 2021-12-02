@@ -20,10 +20,9 @@ Then, `train/val/test` splits can be created using:
   
 ```python resample_ShapeNetCore.py data_path```
   
-preprocess_ShapteNetCore.py for procesing [ShapeNetCore55](https://shapenet.org/) dataset
+`preprocess_ShapteNetCore.py` for procesing [ShapeNetCore55](https://shapenet.org/) dataset
   
-```python preprocess_ShapeNetAll.py shapenetcore.v1_data_dir shapenetall13_data_dir save_dir.
-
+```python preprocess_ShapeNetAll.py shapenetcore.v1_data_dir shapenetall13_data_dir save_dir```
 
 
 # Pretrained models
