@@ -28,7 +28,7 @@ Then, `train/val/test` splits can be created using:
 # Pretrained models
 
 All pretrained models including the corresponding config files can be downloaded [here](https://drive.google.com/drive/folders/1fkVBVqxy2_zTevwd3WdnROPreYke-zuU?usp=sharing).
-To use the models, you need to download the models and put the files in the root directory `.`.
+To use the models, you need to download the models and put the files in the root directory `./`.
 Then, specify the `path2data` storing preprocessed data and path2save directory storing all saved
 checkpoints.
   
@@ -90,13 +90,13 @@ bash ./scripts/run_evaluate_svr.sh
 
 # Visualization
 
-For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following the [official documentation](https://www.mitsuba-renderer.org/). Then run `evaluate_ae.py` with flag `--save` to generate the `.h5` file consisting
+For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following the [official documentation](https://www.mitsuba-renderer.org/). Note, mitsuba needs to be complied and ## sourced before using it. Then run `evaluate_ae.py` with flag `--save` to generate the `.h5` file consisting
 of ground-thuth point clouds and corresponding generated point clouds. Subsequently, point clouds can be rendered by running:
 
 ```
 bash ./scripts/render.sh
 ```
-where `path_h5`, `path_png`, `path_mitsuba`, `name_png` needs to be specified.
+where `path_h5` denotes the path of `.h5` file, `path_png` denotes the path to save png files, `path_mitsuba` represents the path where mitsuba can be used, `name_png` represents the name to save png files, `indices` can be put with all indexes of samples that you want to render. All these strings need to be specified.
 
 # Citation
 
