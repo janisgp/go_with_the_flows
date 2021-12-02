@@ -16,19 +16,21 @@ We further provide all necessary requirements in for of a `requirements.txt`.
   
 ```python preprocess_ShapeNetCore.py data_dir save_dir```
 
-Then, train/val/test splits can be created using:
+Then, `train/val/test` splits can be created using:
   
 ```python resample_ShapeNetCore.py data_path```
   
 preprocess_ShapteNetCore.py for procesing [ShapeNetCore55](https://shapenet.org/) dataset
   
-```python preprocess_ShapeNetAll.py shapenetcore.v1_data_dir shapenetall13_data_dir save_dir
+```python preprocess_ShapeNetAll.py shapenetcore.v1_data_dir shapenetall13_data_dir save_dir.
+
+
 
 # Pretrained models
 
 All pretrained models including the corresponding config files can be downloaded [here](https://drive.google.com/drive/folders/1fkVBVqxy2_zTevwd3WdnROPreYke-zuU?usp=sharing).
 To use the models, you need to download the models and put the files in the root directory `.`.
-Then, specify the path2data storing preprocessed data and path2save directory storing all saved
+Then, specify the `path2data` storing preprocessed data and path2save directory storing all saved
 checkpoints.
   
 # Training
@@ -89,7 +91,7 @@ bash ./scripts/run_evaluate_svr.sh
 
 # Visualization
 
-For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following the [official documentation](link.to.offical.documentation). Subsequently, point clouds can be rendered by running:
+For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following the [official documentation](https://www.mitsuba-renderer.org/). Subsequently, point clouds can be rendered by running:
 
 ```
 bash ./scripts/render.sh
