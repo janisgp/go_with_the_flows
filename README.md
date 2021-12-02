@@ -90,7 +90,7 @@ bash ./scripts/run_evaluate_svr.sh
 
 # Visualization
 
-For visualization with Mitsuba Renderer, we need to first install Mistsuba 2.0 following the [official documentation](https://www.mitsuba-renderer.org/). Note, mitsuba needs to be complied and ## sourced before using it. Then run `evaluate_ae.py` with flag `--save` to generate the `.h5` file consisting
+For visualization with Mitsuba Renderer, we need to first install and compile Mistsuba 2.0 following the [official documentation](https://www.mitsuba-renderer.org/). Note, mitsuba needs to be sourced before using it every time. Then run `evaluate_ae.py` with flag `--save` to generate the `.h5` file consisting
 of ground-thuth point clouds and corresponding generated point clouds. Subsequently, point clouds can be rendered by running:
 
 ```
