@@ -7,7 +7,7 @@ from tqdm import tqdm
 import subprocess
 import argparse
 
-def standardize_bbox(pcl, points_per_object):    
+def standardize_bbox(pcl):    
     mins = np.amin(pcl, axis=0)
     maxs = np.amax(pcl, axis=0)
     center = ( mins + maxs ) / 2.
@@ -126,13 +126,10 @@ def from_exr_to_png(hdr):
     ldr = 255.0 * ldr
     return ldr    
     
-# maps_color = [[0.55, 0.13, 0.05], [0.11, 0.26, 0.29], [0.60, 0.30, 0.05], [0.78, 0.61, 0.06]]
 def ex_to_rgb(exa):
     rgb = [float(int(exa[i:i+2], 16) / 255.0) for i in (0, 2, 4)]
     return rgb
 
-# maps_color = [ex_to_rgb("50312F"), ex_to_rgb("CB0000"), ex_to_rgb("E4EA8C"), ex_to_rgb("3F6C45")]
-# maps_color = [[0.55, 0.13, 0.05], [0.11, 0.26, 0.29], [0.60, 0.30, 0.05], [0.78, 0.61, 0.06]]
 maps_color = [[1, 0.8, 0], [0, 0.6, 0.2], [0.2, 0.4, 0.8], [0.8, 0.2, 0.6]]
 color_gt = [0.8, 0.2, 0.6]
 
@@ -149,13 +146,15 @@ if __name__ == '__main__':
     path_file_h5 = args.path_h5
     path_mitsuba = args.path_mitsuba
     name_png = args.name_png
-
+    
+    #set path for output rendered images
     path_out_render = Path(path_out_render)
     path_out_render.mkdir(exist_ok=True)
-
+    
     h5_file = h5.File(path_file_h5, "a")
     indices = args.indices
     
+    # get generated gt clouds and sampled clouds
     pcds_gt = h5_file['gt_clouds'][:].transpose(0, 2, 1)    
     pcds_pred = h5_file['sampled_clouds'][:].transpose(0, 2, 1)
     labels = h5_file['sampled_labels'][:]
@@ -172,15 +171,16 @@ if __name__ == '__main__':
         for key, value in dict_pcds.items():            
             pcd, colors = value[0], value[1]            
             name_file = f"{index}_{key}"
-            path_xml = path_out_render / f"{name_file}.xml"
+            path_xml = path_out_render / f"{name_file}.xml" #path for xml file
             
-            mitsuba(pcd, path_xml, colors)
+            mitsuba(pcd, path_xml, colors)  # use mitsuba to generate xml
 
             # call mitsuba    
             path_exr = path_out_render / f"{name_file}.exr"
             subprocess.call([f"{path_mitsuba}/mitsuba", path_xml, "-o", path_exr], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
             path_xml.unlink()
             
+            # transfer exr to png file and save
             path_exr = path_out_render / f"{name_file}.exr"
             hdr = cv2.imread(str(path_exr), flags=cv2.IMREAD_UNCHANGED) 
             ldr = from_exr_to_png(hdr)
