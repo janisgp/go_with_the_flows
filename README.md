@@ -1,5 +1,7 @@
 # Mixtures of Normalizing Flows for Point Cloud Generation and Reconstruction
-This is the official implementation of [Go with the Flows: Mixtures of Normalizing Flows for Point Cloud Generation and Reconstruction](https://arxiv.org/abs/2106.03135)
+This is the official implementation of [Go with the Flows: Mixtures of Normalizing Flows for Point Cloud Generation and Reconstruction](https://arxiv.org/abs/2106.03135).
+
+This repository is based on the official implementation of [Discrete Point Flow](https://github.com/Regenerator/dpf-nets).
 
 # Environment
 
@@ -12,17 +14,25 @@ We further provide all necessary requirements in for of a `requirements.txt`.
 
 # Datasets
 
-`preprocess_ShapeNetAll.py` can be used to process ShapeNetAll13 dataset. Therefore, first download [ShapeNetAll13](https://shapenet.org/). Subsequently, the dataset can be preprocessed using:
-  
+We train our models on [ShapeNet](https://shapenet.org/). Specifically, we use [ShapeNetCore55](https://www.shapenet.org/download/shapenetcore) in our experiments on generative modeling and autoencoding, 
+and [ShapeNetAll13](http://3d-r2n2.stanford.edu/) in the ones on single-view reconstructions. After downloading, the datasets can be preprocessed by running:
+
 ```python preprocess_ShapeNetCore.py data_dir save_dir```
 
-Then, `train/val/test` splits can be created using:
-  
-```python resample_ShapeNetCore.py data_path```
-  
-`preprocess_ShapteNetCore.py` for procesing [ShapeNetCore55](https://shapenet.org/) dataset
-  
+resp.
+
 ```python preprocess_ShapeNetAll.py shapenetcore.v1_data_dir shapenetall13_data_dir save_dir```
+
+Subsequently, for ShapeNetCore55 `train/val/test` splits are created using:
+
+```python resample_ShapeNetCore.py data_path```
+
+## Download preprocessed datasets
+
+Since the preprocessing takes up to a week, we provide the preprocessed datasets:
+
+- [Preprocessed ShapeNetCore55](https://data.vision.ee.ethz.ch/jpostels/go_with_the_flows/ShapeNetCore55v2_meshes_resampled.h5)
+- Preprocessed ShapeNetAll13 [meshes](https://data.vision.ee.ethz.ch/jpostels/go_with_the_flows/ShapeNetAll13_meshes.h5) and [images](https://data.vision.ee.ethz.ch/jpostels/go_with_the_flows/ShapeNetAll13_images.h5).
 
 
 # Pretrained models
