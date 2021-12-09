@@ -2,7 +2,7 @@ import torch
 import numpy as np
 from scipy.stats import entropy
 
-from lib.metrics.StructuralLosses.nn_distance import nn_distance
+#from lib.metrics.StructuralLosses.nn_distance import nn_distance
 
 
 class AverageMeter(object):

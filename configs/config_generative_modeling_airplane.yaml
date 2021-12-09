@@ -41,11 +41,11 @@ num_workers: 8
 p_decoder_base_type: free
 p_decoder_base_var: -3.9551
 p_decoder_n_features: 64
-p_decoder_n_flows: 21
+p_decoder_n_flows: 1 #21
 p_latent_space_size: 3
 p_prior_n_layers: 1
 params_reduce_mode: depth_and_feature
-path2data: /home/janis/research/data/ShapeNet # your/path/to/data
+path2data: /usr/local/google/home/postels/research/data/ShapeNet # your/path/to/data
 path2save: ./results
 pc_enc_init_n_channels: 3
 pc_enc_init_n_features: 64

@@ -43,7 +43,7 @@ def define_options_parser():
                         help='ranking within the nodes')
     return parser
 
-def main_worker(gpu, ngpus_per_node,  args):
+def main_worker(gpu, ngpus_per_node, args):
     with io.open(args.config, 'r') as stream:
         config = yaml.load(stream)
     config['jobid'] = args.jobid
@@ -52,9 +52,8 @@ def main_worker(gpu, ngpus_per_node,  args):
         config['logging_path'] = os.path.join(config['path2save'], args.modelname + '_' + name_extension)
         with open(args.config, 'w') as outfile:
             yaml.dump(config, outfile)
-    if not os.path.exists(config['logging_path']):
-        print("needs file to be created in advance for distributed training!!")
-        #os.makedirs(config['logging_path'])
+    if not os.path.exists(config['logging_path']) and gpu == 0:
+        os.makedirs(config['logging_path'])
     config['model_name'] = '{0}.pkl'.format(args.modelname)
     config['n_epochs'] = args.n_epochs
     config['min_lr'] = config['max_lr'] = args.lr
@@ -65,21 +64,27 @@ def main_worker(gpu, ngpus_per_node,  args):
     config['cloud_random_rotate'] = args.cloud_random_rotate
     config['weights_type'] = args.weights_type
     print('Configurations loaded.')
+    print('00')
 
     if args.distributed:
+        print('01')
         torch.cuda.set_device(gpu)
+        print('02')
         args.world_size = args.gpus * args.nodes
         args.rank = args.nr * args.gpus + gpu
+        print('03')
         torch.distributed.init_process_group(
-            'nccl',init_method='env://', world_size=args.world_size, rank=args.rank)
+            'gloo', init_method='env://', world_size=args.world_size, rank=args.rank)
+        print('04')
         print("world_size: ", args.world_size)
         print("rank: ", args.rank)
 
         config['batch_size'] = config['batch_size'] // args.world_size + int(
                             config['batch_size'] % args.world_size > gpu)
         print('Distributed training runs on GPU {} with batch size {}'.format(gpu, config['batch_size']))
+    print('05')
 
-    if not os.path.exists(os.path.join(config['logging_path'], 'config.yaml')):
+    if not os.path.exists(os.path.join(config['logging_path'], 'config.yaml')) and gpu == 0:
         with open(os.path.join(config['logging_path'], 'config.yaml'), 'w') as outfile:
             yaml.dump(config, outfile)
 
@@ -167,13 +172,25 @@ def main_worker(gpu, ngpus_per_node,  args):
 
     summary_writer.close()
 
+
+def find_free_port():
+    """ https://stackoverflow.com/questions/1365265/on-localhost-how-do-i-pick-a-free-port-number """
+    import socket
+    from contextlib import closing
+
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        s.bind(('', 0))
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        return str(s.getsockname()[1])
+
+
 def main():
     parser = define_options_parser()
     args = parser.parse_args()
     if args.distributed:
         ngpus_per_node = torch.cuda.device_count()
         os.environ['MASTER_ADDR'] = '127.0.0.1'
-        os.environ['MASTER_PORT'] = '6666'
+        os.environ['MASTER_PORT'] = find_free_port()  # '6666'
         mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))
     else:
         main_worker(0, 1, args)
