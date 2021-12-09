@@ -63,19 +63,19 @@ def main_worker(gpu, ngpus_per_node, args):
     config['logging'] = not args.distributed or (args.distributed and gpu == 0)
     config['cloud_random_rotate'] = args.cloud_random_rotate
     config['weights_type'] = args.weights_type
-    print('Configurations loaded.')
-    print('00')
+    print('Configurations loaded.', flush=True)
+    print('00', flush=True)
 
     if args.distributed:
-        print('01')
+        print('01', flush=True)
         torch.cuda.set_device(gpu)
-        print('02')
+        print('02', flush=True)
         args.world_size = args.gpus * args.nodes
         args.rank = args.nr * args.gpus + gpu
-        print('03')
+        print('03', flush=True)
         torch.distributed.init_process_group(
             'nccl', init_method='env://', world_size=args.world_size, rank=args.rank)
-        print('04')
+        print('04', flush=True)
         print("world_size: ", args.world_size)
         print("rank: ", args.rank)
 

@@ -134,7 +134,8 @@ def eval(iterator, model, loss_func, optimizer, epoch, iter, warmup, min_loss, e
                 print('Loss is INF! Stopping without updating the net...')
                 exit()
 
-    print('[epoch %d]: eval loss %f' % (epoch, LB.avg))
+    if kwargs.get('logging'):
+        print('[epoch %d]: eval loss %f' % (epoch, LB.avg))
 
     # write to tensorboard
     if kwargs.get('logging'):
