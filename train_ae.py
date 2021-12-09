@@ -74,7 +74,7 @@ def main_worker(gpu, ngpus_per_node, args):
         args.rank = args.nr * args.gpus + gpu
         print('03')
         torch.distributed.init_process_group(
-            'gloo', init_method='env://', world_size=args.world_size, rank=args.rank)
+            'nccl', init_method='env://', world_size=args.world_size, rank=args.rank)
         print('04')
         print("world_size: ", args.world_size)
         print("rank: ", args.rank)

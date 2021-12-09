@@ -44,6 +44,9 @@ checkpoints.
   
 # Training
 
+All training configurations can be found in `configs/`. Prior to training/evaluation remember to set
+`path2data` in the resp. config file accordingly.
+
 ## Generative modeling
 
 A generative model can be trained on airplanes/cars/chairs by running the corresponding subsequent command:
