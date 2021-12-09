@@ -78,7 +78,6 @@ tornado==6.1
 tqdm==4.57.0
 traitlets==5.0.5
 typing-extensions==3.7.4.3
-
 wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.1

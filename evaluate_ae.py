@@ -17,7 +17,7 @@ from lib.networks.losses import Flow_Mixture_Loss
 def define_options_parser():
     parser = argparse.ArgumentParser(description='Model training script. Provide a suitable config.')
     parser.add_argument('experiment_path', type=str, help='Path to experiment.')
-    parser.add_argument('modelname', type=str, help='Path to experiment.')
+    parser.add_argument('modelname', type=str, help='Model name (without ending).')
     parser.add_argument('part', help='Part of dataset (train / val / test).')
     parser.add_argument('cloud_size', type=int, help='Number of input points.')
     parser.add_argument('sampled_cloud_size', type=int, help='Number of sampled points.')
@@ -112,6 +112,8 @@ if config['train_mode'] == 'p_rnvp_mc_g_rnvp_vae':
     model = Flow_Mixture_Model(**config).cuda()
 elif config['train_mode'] == 'p_rnvp_mc_g_rnvp_vae_ic':
     model = Flow_Mixture_SVR_Model(**config).cuda()
+else:
+  raise ValueError(f'Unknown train_mode {config["train_mode"]}')
 print('Model init: done.')
 
 if config['util_mode'] == 'training':

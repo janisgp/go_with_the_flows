@@ -19,7 +19,7 @@ from datetime import datetime
 def define_options_parser():
     parser = argparse.ArgumentParser(description='Model training script. Provide a suitable config.')
     parser.add_argument('config', type=str, help='Path to config file in YAML format.')
-    parser.add_argument('modelname', type=str, help='Model name to save checkpoints.')
+    parser.add_argument('modelname', type=str, help='Model name for saving checkpoints.')
     parser.add_argument('n_epochs', type=int, help='Total number of training epochs.')
     parser.add_argument('lr', type=float, help='Learining rate value.')
     parser.add_argument('--cloud_random_rotate', action='store_true',

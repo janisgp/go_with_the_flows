@@ -1,0 +1,93 @@
+batch_size: 128           # 1 for evaluation, 128 for training
+beta1: 0.9
+chosen_label: null
+cloud_center: false
+cloud_noise: false
+cloud_noise_scale: 0.002
+cloud_recenter2orig: false
+cloud_rescale2orig: false
+cloud_scale: true
+cloud_scale_scale: 2.0
+cloud_size: 2500
+cloud_translate: false
+cloud_translate_shift:
+- -0.01728925
+- 0.01043933
+- -0.00012057
+cycle_length: 20
+deterministic: false
+g_latent_space_size: 512
+g_posterior_n_layers: 1
+g_prior_n_features: 128
+g_prior_n_flows: 7
+g_prior_n_layers: 1
+gent_weight: 1.0
+gnll_weight: 1.0
+image_add_grayscale: true
+image_means:
+- 0.03492457
+- 0.03379815
+- 0.03475684
+- 0.03874264
+image_noise: false
+image_noise_scale: 0.02
+image_normalize: true
+image_pad: false
+image_pad_size:
+- 0
+- 0
+image_remove_alpha: true
+image_resize: true
+image_size:
+- 224
+- 224
+image_stds:
+- 0.10963749
+- 0.10795733
+- 0.11031612
+- 0.12266339
+images_fname: ShapeNetAll13_images.h5
+img_enc_bottleneck_n_features: 256
+img_enc_init_n_channels: 4
+img_enc_init_n_features: 32
+img_enc_n_features:
+- 64
+- 128
+- 256
+jobid: '4'
+logging_path: ./results/svr
+max_beta2: 0.995
+max_lr: 0.000256
+meshes_fname: ShapeNetAll13_meshes.h5
+min_beta2: 0.995
+min_lr: 0.000256
+model_name: svr_model_warmup.pkl
+n_components: 4
+n_epochs: 20
+num_workers: 8
+p_decoder_base_type: freevar
+p_decoder_base_var: 0.0
+p_decoder_n_features: 64
+p_decoder_n_flows: 21
+p_latent_space_size: 3
+p_prior_n_layers: 1
+params_reduce_mode: depth_and_feature
+path2data: your/path/to/data
+path2save: ./results
+pc_enc_init_n_channels: 3
+pc_enc_init_n_features: 64
+pc_enc_n_features:
+- 128
+- 256
+- 512
+pnll_weight: 1.0
+resume: false
+resume_optimizer: false
+shuffle: true
+train_mode: p_rnvp_mc_g_rnvp_vae_ic
+util_mode: training
+wd: 1.0e-06
+
+# Logging
+logging_img: False  # whether to log point cloud reconstruction to tensorboard
+logging_img_frequency: 1  # frequency with which reconstructions are being logged (every x epochs)
