@@ -143,8 +143,10 @@ def main_worker(gpu, ngpus_per_node, args):
 
     print("training")
     # configure tensorboard logging
-    tb_path = os.path.join(config['logging_path'], 'log')
-    summary_writer = SummaryWriter(tb_path)
+    summary_writer = None
+    if gpu == 0:
+        tb_path = os.path.join(config['logging_path'], 'log')
+        summary_writer = SummaryWriter(tb_path)
 
     for epoch in range(cur_epoch, config['n_epochs']):
         warmup = True if epoch < args.warmup_epoch else False

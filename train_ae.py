@@ -154,6 +154,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     print("training")
     # configure tensorboard logging
+    summary_writer = None
     if gpu == 0:
         tb_path = os.path.join(config['logging_path'], 'log')
         summary_writer = SummaryWriter(tb_path)
