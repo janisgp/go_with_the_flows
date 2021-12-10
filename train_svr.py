@@ -158,8 +158,8 @@ def main_worker(gpu, ngpus_per_node, args):
 def main():
     parser = define_options_parser()
     args = parser.parse_args()
-    if args.distributed:
-        ngpus_per_node = torch.cuda.device_count()
+    ngpus_per_node = torch.cuda.device_count()
+    if args.distributed and ngpus_per_node > 1:
         os.environ['MASTER_ADDR'] = '127.0.0.1'
         os.environ['MASTER_PORT'] = '5555'
         mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))
