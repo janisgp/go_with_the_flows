@@ -64,25 +64,19 @@ def main_worker(gpu, ngpus_per_node, args):
     config['cloud_random_rotate'] = args.cloud_random_rotate
     config['weights_type'] = args.weights_type
     print('Configurations loaded.', flush=True)
-    print('00', flush=True)
 
     if args.distributed:
-        print('01', flush=True)
         torch.cuda.set_device(gpu)
-        print('02', flush=True)
         args.world_size = args.gpus * args.nodes
         args.rank = args.nr * args.gpus + gpu
-        print('03', flush=True)
         torch.distributed.init_process_group(
             'nccl', init_method='env://', world_size=args.world_size, rank=args.rank)
-        print('04', flush=True)
         print("world_size: ", args.world_size)
         print("rank: ", args.rank)
 
         config['batch_size'] = config['batch_size'] // args.world_size + int(
                             config['batch_size'] % args.world_size > gpu)
         print('Distributed training runs on GPU {} with batch size {}'.format(gpu, config['batch_size']))
-    print('05')
 
     if not os.path.exists(os.path.join(config['logging_path'], 'config.yaml')) and gpu == 0:
         with open(os.path.join(config['logging_path'], 'config.yaml'), 'w') as outfile:
