@@ -5,12 +5,12 @@ This repository is based on the official implementation of [Discrete Point Flow]
 
 # Environment
 
-This repository requires:
+We provide all necessary requirements in form of a `environment.yml`.
 
-- pytorch
-- ...
-
-We further provide all necessary requirements in for of a `requirements.txt`.
+For our evaluation we rely on the efficient implementation of the EMD metric provided by [PointFlow](https://github.com/stevenygd/PointFlow).
+To this end, we refer to the installation instructions provided there. 
+Alternatively, the precompiled code can be downloaded [here](https://drive.google.com/drive/folders/1jFo6gSuQNjVq-8oB0iZ2YkMRFVP7t8GC?usp=sharing),
+which needs to be unzipped and placed in `lib/metrics/` and is expected to work with the provided `environment.yml`. 
 
 # Datasets
 
@@ -38,14 +38,12 @@ Since the preprocessing takes up to a week, we provide the preprocessed datasets
 # Pretrained models
 
 All pretrained models including the corresponding config files can be downloaded [here](https://drive.google.com/drive/folders/1fkVBVqxy2_zTevwd3WdnROPreYke-zuU?usp=sharing).
-To use the models, you need to download the models and put the files in the root directory `./`.
-Then, specify the `path2data` storing preprocessed data and path2save directory storing all saved
-checkpoints.
-  
+To use the models during evaluation, specify your path to the preprocessed data `path2data` in the configs of the pretrained models.
+
 # Training
 
 All training configurations can be found in `configs/`. Prior to training/evaluation remember to set
-`path2data` in the resp. config file accordingly.
+`path2data` in the resp. config file accordingly. Note, `path2save` specifies the logging directory and defaults to `./results`.
 
 ## Generative modeling
 
