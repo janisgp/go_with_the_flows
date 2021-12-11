@@ -132,7 +132,7 @@ def evaluate(iterator, model, loss_func, **kwargs):
                 image_clouds[kwargs['batch_size'] * i:kwargs['batch_size'] * i + images.shape[0]] = \
                     images.cpu().numpy().astype(np.float32)
         
-        if util_mode == 'autoencoding' or util_mode == 'generation':
+        if util_mode == 'autoencoding' or util_mode == 'generating':
             gen_clouds_buf.append(r_clouds)
             ref_clouds_buf.append(p_clouds)
         elif util_mode == 'reconstruction':
