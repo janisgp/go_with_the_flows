@@ -143,8 +143,10 @@ def main_worker(gpu, ngpus_per_node, args):
 
     print("training")
     # configure tensorboard logging
-    tb_path = os.path.join(config['logging_path'], 'log')
-    summary_writer = SummaryWriter(tb_path)
+    summary_writer = None
+    if gpu == 0:
+        tb_path = os.path.join(config['logging_path'], 'log')
+        summary_writer = SummaryWriter(tb_path)
 
     for epoch in range(cur_epoch, config['n_epochs']):
         warmup = True if epoch < args.warmup_epoch else False
@@ -156,8 +158,8 @@ def main_worker(gpu, ngpus_per_node, args):
 def main():
     parser = define_options_parser()
     args = parser.parse_args()
-    if args.distributed:
-        ngpus_per_node = torch.cuda.device_count()
+    ngpus_per_node = torch.cuda.device_count()
+    if args.distributed and ngpus_per_node > 1:
         os.environ['MASTER_ADDR'] = '127.0.0.1'
         os.environ['MASTER_PORT'] = '5555'
         mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))

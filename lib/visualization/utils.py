@@ -45,7 +45,6 @@ def add_figures_reconstruction_tb(imgs_gt, imgs_reconst, mixture_labels, summary
     fig, axs = plt.subplots(nr_samples, 2, figsize=(15, 15))
     for i in range(nr_samples):
         axs[i, 0].scatter(imgs_gt[i, 0, :], imgs_gt[i, 1, :], s=10.0, alpha=0.5)
-        print(mixture_labels[i])
         c = [COLORS_PLT[lbl - 1] for lbl in mixture_labels[i].astype(np.int)]
         axs[i, 1].scatter(imgs_reconst[i, 0, :], imgs_reconst[i, 1, :], s=10.0, alpha=0.5, c=c)
     summary_writer.add_figure('GT_vs_RECONSTRUCTION', fig, iter)
@@ -56,7 +55,6 @@ def add_svr_reconstruction_tb(imgs, imgs_gt, imgs_reconst, mixture_labels, summa
     fig, axs = plt.subplots(nr_samples, 3, figsize=(15, 15))
     for i in range(nr_samples):
         axs[i, 0].scatter(imgs_gt[i, 0, :], imgs_gt[i, 1, :], s=10.0, alpha=0.5)
-        print(mixture_labels[i])
         c = [COLORS_PLT[lbl - 1] for lbl in mixture_labels[i].astype(np.int)]
         axs[i, 1].scatter(imgs_reconst[i, 0, :], imgs_reconst[i, 1, :], s=10.0, alpha=0.5, c=c)
         axs[i, 2].imshow(imgs[i, :, :, 1:4])

@@ -154,6 +154,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     print("training")
     # configure tensorboard logging
+    summary_writer = None
     if gpu == 0:
         tb_path = os.path.join(config['logging_path'], 'log')
         summary_writer = SummaryWriter(tb_path)
@@ -184,7 +185,6 @@ def main():
     args = parser.parse_args()
     ngpus_per_node = torch.cuda.device_count()
     if args.distributed and ngpus_per_node > 1:
-        ngpus_per_node = torch.cuda.device_count()
         os.environ['MASTER_ADDR'] = '127.0.0.1'
         os.environ['MASTER_PORT'] = find_free_port()  # '6666'
         mp.spawn(main_worker, nprocs=ngpus_per_node, args=(ngpus_per_node, args))
